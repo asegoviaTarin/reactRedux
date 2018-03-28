@@ -14,7 +14,7 @@ class SearchBar extends React.Component {
     // this.setState({ props.handler: e.target.value });
     this.props.handler =  e.target.value
   }
-
+// comentario de prueba
   render() {
     return (
       <div>
