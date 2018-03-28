@@ -4,23 +4,30 @@ class SearchBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { term: 'Alberto',
-    placeHolder: 'AlbertoPlaceholder',
+    this.state = { term: '',
+    placeHolder: 'Search...',
    };
   }
 
-  onInputChanges = (e) => {
-    this.setState({ term: e.target.value });
-    // this.setState({ props.handler: e.target.value });
-    this.props.handler =  e.target.value
+  onInputChanges = (term) => {
+    console.log(term)
+    this.props.onBarChange(term)
+    this.setState({term});
   }
-// comentario de prueba
+
+  _handleKeyPress =(e) => {
+    if (e.key === 'Enter') {
+      console.log(e.value)
+      props.onBarChange(e.target.value);
+    }
+  }
   render() {
     return (
       <div>
-        <input  value= {this.state.term}
+        <input value= {this.state.term}
         placeholder = {this.state.placeHolder}
-        onChange={this.onInputChanges} />
+        
+        onChange={event => this.onInputChanges(event.target.value)} />
        
       </div>
 

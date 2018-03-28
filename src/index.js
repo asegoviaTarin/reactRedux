@@ -12,22 +12,28 @@ class App extends React.Component {
     super(props);
     this.state = {
       videos: [],
-      searchKey: 'penguins'
+      selectedVideo: null,
+      searchKey: 'angular'
     };
-
-    YTSearch({ key: API_KEY, term: this.state.searchKey }, (videos) => {
-      this.setState({ videos });
-    });
+    this.videoSearch(this.state.searchKey)
   }
 
- 
+  videoSearch(key) {
+    console.log(key)
+    YTSearch({ key: API_KEY, term: key }, (videos) => {
+      this.setState({ 
+        videos,
+        selectedVideo: videos[0],
+       });
+    });
+  }
 
   render() {
     return (
       <div>
-        <SearchBar/>
-        <VideoDetail video = {this.state.videos[0]}/>
-        <VideoList videos={this.state.videos} />
+        <SearchBar onBarChange = {searchKey => this.videoSearch({searchKey})}/>
+        <VideoDetail video = {this.state.selectedVideo}/>
+        <VideoList onVideoSelect = {selectedVideo => this.setState({selectedVideo})} videos ={this.state.videos} />
       </div>
     );
   };
